@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Orders.Shared.Interfaces;
+using System.ComponentModel.DataAnnotations;
 
 namespace Orders.Shared.Entities;
 
-public class Country
+public class Country :IEntityWithName
 {
     public int Id { get; set; }
 
@@ -11,4 +12,8 @@ public class Country
     [Required(ErrorMessage = "El campo {0} es obligatorio.")]
     public string Name { get; set; } = null!;
 
+    public ICollection<State>? States { get; set; }
+
+    [Display(Name = "Estados/Departamentos")]
+    public int StatesNumber => States == null || States.Count == 0 ? 0 : States.Count;
 }
